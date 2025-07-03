@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  webapp:
+    build: .
+    container_name: natural_language_crud_app
+    ports:
+      - "8501:8501" # Expose Streamlit to your machine
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    depends_on:
+      - ollama
+    networks:
+      - app-net
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama_service
+    ports:
+      - "11434:11434" # Expose Ollama to your machine
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - app-net
+
+networks:
+  app-net:
+    driver: bridge
+
+volumes:
+  ollama_data:

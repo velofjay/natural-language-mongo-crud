@@ -1,0 +1,9 @@
+flask
+python-dotenv
+pymongo[srv]
+ariadne
+ollama
+gunicorn
+streamlit
+requests
+pandas

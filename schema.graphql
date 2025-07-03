@@ -1,0 +1,22 @@
+type Movie {
+  id: ID!
+  title: String
+  genres: [String]
+  description: String
+  directors: [String]
+  actors: [String]
+  year: Int
+  runtime: Int
+  rating: Float
+  votes: Int
+  revenue: Float
+  error: String # To pass error messages
+}
+
+type Query {
+  ask(question: String!): [Movie]
+}
+
+type Mutation {
+  processCommand(command: String!): String
+}

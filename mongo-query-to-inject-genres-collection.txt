@@ -1,0 +1,26 @@
+[
+  {
+    "$project": {
+      "genres_array": {
+        "$split": ["$Genre", ","]
+      }
+    }
+  },
+  {
+    "$unwind": "$genres_array"
+  },
+  {
+    "$group": {
+      "_id": "$genres_array"
+    }
+  },
+  {
+    "$project": {
+      "genre": "$_id",
+      "_id": 0
+    }
+  },
+  {
+    "$out": "genres"
+  }
+]
