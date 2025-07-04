@@ -1,11 +1,78 @@
-version: '3.8'
+# version: '3.8'
 
+# services:
+#   webapp:
+#     build: .
+#     container_name: natural_language_crud_app
+#     ports:
+#       - "8501:8501" # Expose Streamlit to your machine
+#     env_file:
+#       - .env
+#     volumes:
+#       - .:/app
+#     depends_on:
+#       - ollama
+#     networks:
+#       - app-net
+
+#   ollama:
+#     image: ollama/ollama:latest
+#     container_name: ollama_service
+#     ports:
+#       - "11434:11434" # Expose Ollama to your machine
+#     volumes:
+#       - ollama_data:/root/.ollama
+#     networks:
+#       - app-net
+
+# networks:
+#   app-net:
+#     driver: bridge
+
+# volumes:
+#   ollama_data:
+###############################
+# # The 'version' tag is removed as it's obsolete in modern Docker Compose
+# services:
+#   webapp:
+#     build: .
+#     container_name: natural_language_crud_app
+#     ports:
+#       - "8501:8501"
+#     env_file:
+#       - .env
+#     volumes:
+#       - .:/app
+#     depends_on:
+#       - ollama
+#     networks:
+#       - app-net
+
+#   ollama:
+#     image: ollama/ollama:latest
+#     container_name: ollama_service
+#     ports:
+#       - "11434:11434"
+#     volumes:
+#       - ollama_data:/root/.ollama
+#     networks:
+#       - app-net
+
+# networks:
+#   app-net:
+#     driver: bridge
+
+# # **THIS IS THE MISSING BLOCK THAT CAUSED THE ERROR**
+# # It defines the 'ollama_data' volume so the service can use it.
+# volumes:
+#   ollama_data:
+##################################################################
 services:
   webapp:
     build: .
     container_name: natural_language_crud_app
     ports:
-      - "8501:8501" # Expose Streamlit to your machine
+      - "8501:8501"
     env_file:
       - .env
     volumes:
@@ -19,7 +86,7 @@ services:
     image: ollama/ollama:latest
     container_name: ollama_service
     ports:
-      - "11434:11434" # Expose Ollama to your machine
+      - "11434:11434"
     volumes:
       - ollama_data:/root/.ollama
     networks:
@@ -28,6 +95,12 @@ services:
 networks:
   app-net:
     driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 1400
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.238.0/24
 
 volumes:
   ollama_data:

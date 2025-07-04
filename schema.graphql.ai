@@ -1,0 +1,24 @@
+type Movie {
+  # This type is now mostly for reference for the CUD operations.
+  id: ID!
+  title: String
+  genres: [String]
+  description: String
+  directors: [String]
+  actors: [String]
+  year: Int
+  runtime: Int
+  rating: Float
+  votes: Int
+  revenue: Float
+  error: String
+}
+
+type Query {
+  # **MAJOR CHANGE**: This now returns a single String, not a list of Movies.
+  ask(question: String!): String
+}
+
+type Mutation {
+  processCommand(command: String!): String
+}
